@@ -1,0 +1,875 @@
+body {
+  margin: 0;
+  background: radial-gradient(ellipse at center, #1e3a8a 0%, #0f172a 50%, #020617 100%);
+  font-family: 'Orbitron', sans-serif;
+  color: white;
+  overflow: hidden;
+  position: relative;
+}
+
+body::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-image: 
+    radial-gradient(2px 2px at 20% 30%, white, transparent),
+    radial-gradient(2px 2px at 60% 70%, white, transparent),
+    radial-gradient(1px 1px at 50% 50%, white, transparent),
+    radial-gradient(1px 1px at 80% 10%, white, transparent),
+    radial-gradient(2px 2px at 90% 60%, white, transparent),
+    radial-gradient(1px 1px at 33% 80%, white, transparent),
+    radial-gradient(1px 1px at 15% 90%, white, transparent);
+  background-size: 200% 200%;
+  background-position: 0% 0%;
+  animation: twinkle 5s ease-in-out infinite;
+  opacity: 0.3;
+  pointer-events: none;
+}
+
+@keyframes twinkle {
+  0%, 100% { opacity: 0.3; }
+  50% { opacity: 0.5; }
+}
+
+.screen {
+  display: none;
+  height: 100vh;
+  width: 100%;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+}
+
+.screen.active {
+  display: flex;
+}
+
+/* Home Page */
+#welcomeContent {
+  position: relative;
+  width: 100%;
+  max-width: 500px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 20px;
+  padding: 20px;
+  box-sizing: border-box;
+}
+
+/* Colorful bricks at top left */
+#colorfulBricks {
+  position: absolute;
+  top: -80px;
+  left: 20px;
+  display: flex;
+  flex-wrap: wrap;
+  gap: 5px;
+  width: 120px;
+  transform: rotate(-15deg);
+}
+
+.colorBrick {
+  width: 35px;
+  height: 18px;
+  border-radius: 3px;
+  box-shadow: 2px 2px 5px rgba(0,0,0,0.5);
+}
+
+.brick-blue { background: #3b82f6; }
+.brick-pink { background: #ec4899; }
+.brick-orange { background: #f97316; }
+.brick-yellow { background: #fbbf24; }
+.brick-green { background: #22c55e; }
+
+/* Ball at top */
+#ballTop {
+  position: absolute;
+  top: -60px;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 50px;
+  height: 50px;
+  border-radius: 50%;
+  background: radial-gradient(circle at 30% 30%, #ffffff, #c0c0c0 40%, #808080 70%, #505050);
+  box-shadow: 0 5px 15px rgba(0,0,0,0.5), inset -5px -5px 10px rgba(0,0,0,0.3);
+  animation: float 3s ease-in-out infinite;
+}
+
+@keyframes float {
+  0%, 100% { transform: translateX(-50%) translateY(0); }
+  50% { transform: translateX(-50%) translateY(-10px); }
+}
+
+/* Red fragments */
+#redFragments {
+  position: absolute;
+  top: 0;
+  right: 80px;
+  display: flex;
+  gap: 8px;
+}
+
+.redFragment {
+  width: 18px;
+  height: 12px;
+  background: linear-gradient(135deg, #ef4444, #dc2626);
+  border-radius: 2px;
+  box-shadow: 1px 1px 3px rgba(0,0,0,0.4);
+  animation: scatter 2s infinite ease-in-out;
+}
+
+.redFragment:nth-child(1) { animation-delay: 0s; }
+.redFragment:nth-child(2) { animation-delay: 0.3s; }
+.redFragment:nth-child(3) { animation-delay: 0.6s; }
+
+@keyframes scatter {
+  0% { transform: translateY(0) rotate(0deg); opacity: 1; }
+  50% { transform: translateY(20px) rotate(45deg); opacity: 0.7; }
+  100% { transform: translateY(40px) rotate(90deg); opacity: 0; }
+}
+
+#gameTitle {
+  text-align: center;
+  margin-top: 60px;
+  margin-bottom: 20px;
+}
+
+/* GALAXY title */
+.galaxyTitle {
+  font-size: 3.5em;
+  font-weight: bold;
+  letter-spacing: 8px;
+  background: linear-gradient(180deg, #2563eb, #1e40af);
+  color: #e0f2fe;
+  text-shadow: 
+    0 0 10px rgba(96, 165, 250, 0.8),
+    0 0 20px rgba(59, 130, 246, 0.6),
+    2px 2px 4px rgba(0,0,0,0.8);
+  padding: 20px 60px;
+  border: 3px solid #60a5fa;
+  border-radius: 0;
+  box-shadow: 
+    0 0 20px rgba(96, 165, 250, 0.4),
+    0 8px 20px rgba(0,0,0,0.6), 
+    inset 0 -4px 12px rgba(0,0,0,0.5),
+    inset 0 2px 8px rgba(255,255,255,0.2);
+  margin-bottom: 8px;
+  width: auto;
+  max-width: 90%;
+  text-align: center;
+  position: relative;
+  clip-path: polygon(
+    15px 0%, 
+    calc(100% - 15px) 0%, 
+    100% 15px, 
+    100% calc(100% - 15px), 
+    calc(100% - 15px) 100%, 
+    15px 100%, 
+    0% calc(100% - 15px), 
+    0% 15px
+  );
+}
+
+/* BLOCK BREAKER title */
+.blockBreakerTitle {
+  background: linear-gradient(180deg, #1e3a8a, #0f172a);
+  border: 2px solid #64748b;
+  border-radius: 0;
+  padding: 12px 50px;
+  box-shadow: 
+    0 4px 12px rgba(0,0,0,0.5),
+    inset 0 -3px 8px rgba(0,0,0,0.4),
+    inset 0 1px 4px rgba(255,255,255,0.1);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  width: auto;
+  max-width: 90%;
+  clip-path: polygon(
+    12px 0%, 
+    calc(100% - 12px) 0%, 
+    100% 12px, 
+    100% calc(100% - 12px), 
+    calc(100% - 12px) 100%, 
+    12px 100%, 
+    0% calc(100% - 12px), 
+    0% 12px
+  );
+}
+
+.titleText {
+  font-size: 1.8em;
+  font-weight: bold;
+  letter-spacing: 3px;
+  color: #d4af87;
+  text-shadow: 
+    0 2px 4px rgba(0,0,0,0.8),
+    0 0 8px rgba(212, 175, 135, 0.4);
+}
+
+.ballIcon {
+  font-size: 1.3em;
+  filter: drop-shadow(0 2px 4px rgba(0,0,0,0.5));
+}
+
+/* Paddle graphic */
+#paddleGraphic {
+  display: flex;
+  align-items: center;
+  margin: 30px auto 40px;
+  filter: drop-shadow(0 4px 8px rgba(0,0,0,0.5));
+  transform: rotate(-25deg);
+}
+
+.paddle-end {
+  width: 30px;
+  height: 22px;
+  background: linear-gradient(180deg, #ef4444, #dc2626);
+  border-radius: 4px;
+  box-shadow: inset 0 -2px 4px rgba(0,0,0,0.3);
+}
+
+.paddle-center {
+  width: 100px;
+  height: 22px;
+  background: linear-gradient(180deg, #ffffff, #e5e5e5);
+  border-top: 2px solid #f0f0f0;
+  border-bottom: 2px solid #c0c0c0;
+  box-shadow: inset 0 -2px 4px rgba(0,0,0,0.2);
+}
+
+/* Play button */
+.btn {
+  background: linear-gradient(180deg, #4ade80, #22c55e, #16a34a);
+  border: 5px solid #94a3b8;
+  border-radius: 12px;
+  width: 130px;
+  height: 130px;
+  font-size: 3.5em;
+  color: white;
+  cursor: pointer;
+  box-shadow: 0 0 30px rgba(34, 197, 94, 0.5), 0 6px 15px rgba(0,0,0,0.6), inset 0 -3px 8px rgba(0,0,0,0.3);
+  transition: transform 0.2s, box-shadow 0.3s;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding-left: 8px;
+  animation: pulse 2s ease-in-out infinite;
+  position: relative;
+}
+
+.btn:hover {
+  transform: scale(1.1);
+  box-shadow: 0 0 50px rgba(34, 197, 94, 0.8), 0 10px 25px rgba(0,0,0,0.7), inset 0 -3px 8px rgba(0,0,0,0.3);
+  animation: none;
+}
+
+@keyframes pulse {
+  0%, 100% {
+    transform: scale(1);
+    box-shadow: 0 0 30px rgba(34, 197, 94, 0.5), 0 6px 15px rgba(0,0,0,0.6), inset 0 -3px 8px rgba(0,0,0,0.3);
+  }
+  50% {
+    transform: scale(1.08);
+    box-shadow: 0 0 45px rgba(34, 197, 94, 0.7), 0 8px 20px rgba(0,0,0,0.7), inset 0 -3px 8px rgba(0,0,0,0.3);
+  }
+}
+
+/* Level Select Page */
+#levelSelect {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: flex-start;
+  height: 100vh;
+  width: 100%;
+  background: linear-gradient(to bottom, #0a0a2a, #000);
+  padding: 30px 15px;
+  box-sizing: border-box;
+  overflow-y: auto;
+}
+
+#levelSelectHeader {
+  font-size: clamp(1.2em, 4vw, 1.5em);
+  background: linear-gradient(180deg, #1e3a8a, #0f172a);
+  color: #fff;
+  padding: 10px 20px;
+  border: 3px solid #64748b;
+  border-radius: 8px;
+  margin-bottom: 20px;
+  text-align: center;
+  font-weight: bold;
+  letter-spacing: 2px;
+  box-shadow: 0 4px 12px rgba(0,0,0,0.5), inset 0 -3px 8px rgba(0,0,0,0.4);
+}
+
+/* Housing container for the grid */
+#levelsGrid {
+  display: grid;
+  grid-template-columns: repeat(5, minmax(50px, 55px));
+  grid-gap: 10px;
+  justify-content: center;
+  background: linear-gradient(135deg, #1e293b, #0f172a);
+  border: 4px solid #475569;
+  border-radius: 15px;
+  padding: 25px;
+  max-width: 95vw;
+  width: auto;
+  box-sizing: border-box;
+  box-shadow: 0 8px 24px rgba(0,0,0,0.6), inset 0 2px 8px rgba(255,255,255,0.1);
+}
+
+/* Unlocked level button */
+.levelBtn {
+  width: 50px;
+  height: 50px;
+  background: linear-gradient(180deg, #1e293b, #0f172a);
+  border: 3px solid #64748b;
+  border-radius: 8px;
+  color: #fff;
+  font-size: 1em;
+  font-weight: bold;
+  cursor: pointer;
+  text-align: center;
+  line-height: 44px;
+  transition: transform 0.2s, background 0.3s, box-shadow 0.2s;
+  box-shadow: 0 4px 8px rgba(0,0,0,0.4), inset 0 -2px 6px rgba(0,0,0,0.3);
+}
+
+.levelBtn:hover {
+  transform: scale(1.1);
+  background: linear-gradient(180deg, #2563eb, #1e40af);
+  box-shadow: 0 6px 12px rgba(0,0,0,0.5), 0 0 20px rgba(59, 130, 246, 0.4);
+}
+
+/* Locked level button */
+.levelLocked {
+  width: 50px;
+  height: 50px;
+  background: linear-gradient(180deg, #1e293b, #0f172a);
+  border: 3px solid #334155;
+  border-radius: 8px;
+  cursor: not-allowed;
+  box-shadow: 0 4px 8px rgba(0,0,0,0.4), inset 0 -2px 6px rgba(0,0,0,0.5);
+  font-size: 1.5em;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  opacity: 0.6;
+}
+
+/* Game Page HUD */
+#hud {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  background: linear-gradient(180deg, #2563eb, #1e40af);
+  color: #fff;
+  padding: 15px 20px;
+  width: 100%;
+  box-sizing: border-box;
+  box-shadow: 0 2px 8px rgba(0,0,0,0.3);
+}
+
+#levelDisplay {
+  font-size: 1.5em;
+  color: #fff;
+  font-weight: bold;
+  letter-spacing: 2px;
+  text-shadow: 2px 2px 4px rgba(0,0,0,0.4);
+}
+
+#stars {
+  color: #fbbf24;
+  font-size: 1.8em;
+  text-shadow: 0 2px 4px rgba(0,0,0,0.4);
+  display: flex;
+  gap: 5px;
+}
+
+#audioControls {
+  display: flex;
+  gap: 10px;
+}
+
+#audioControls button {
+  background: linear-gradient(180deg, #22c55e, #16a34a);
+  border: 3px solid #dcfce7;
+  border-radius: 6px;
+  color: #fff;
+  font-size: 1.4em;
+  cursor: pointer;
+  width: 50px;
+  height: 50px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: transform 0.2s, background 0.2s;
+  box-shadow: 0 4px 8px rgba(0,0,0,0.3), inset 0 -2px 4px rgba(0,0,0,0.2);
+}
+
+#audioControls button:hover {
+  transform: scale(1.05);
+  background: linear-gradient(180deg, #16a34a, #15803d);
+}
+
+/* Progress Bar */
+#progressBar {
+  width: 92%;
+  height: 14px;
+  background: repeating-linear-gradient(
+    90deg,
+    #f3f4f6 0px,
+    #f3f4f6 30px,
+    #d1d5db 30px,
+    #d1d5db 32px
+  );
+  margin: 10px auto;
+  border-radius: 0;
+  overflow: hidden;
+  border: 2px solid #9ca3af;
+  box-shadow: inset 0 2px 4px rgba(0,0,0,0.2);
+  position: relative;
+}
+
+#progressFill {
+  width: 0%;
+  height: 100%;
+  background: linear-gradient(90deg, #22c55e, #16a34a);
+  transition: width 0.3s ease;
+  position: relative;
+}
+
+/* Canvas */
+#gameCanvas {
+  background: linear-gradient(180deg, #1e40af, #1e3a8a, #0f172a);
+  border: none;
+  display: block;
+  margin: 0 auto;
+  box-shadow: 0 0 20px rgba(0,0,0,0.5);
+}
+
+#gameContainer {
+  background: linear-gradient(180deg, #1e40af, #1e3a8a, #0f172a);
+}
+
+/* End Game UI */
+#ui {
+  text-align: center;
+  margin-top: 10px;
+}
+
+#status {
+  font-size: 1.5em;
+  margin: 10px;
+  color: #ffcc00;
+}
+
+#endControls {
+  margin-top: 20px;
+}
+
+#endControls button {
+  background: #00cc66;
+  border: none;
+  border-radius: 5px;
+  padding: 10px 15px;
+  margin: 5px;
+  color: white;
+  cursor: pointer;
+}
+
+#endControls button:hover {
+  transform: scale(1.1);
+  background: #00ff88;
+}
+
+#levelInfo {
+  font-size: 1.2em;
+  margin-bottom: 10px;
+}
+
+/* Responsive Design */
+@media screen and (max-width: 768px) {
+  #welcomeContent {
+    max-width: 100%;
+    padding: 15px;
+  }
+
+  #colorfulBricks {
+    top: -50px;
+    left: 5%;
+    width: 90px;
+    gap: 3px;
+  }
+
+  .colorBrick {
+    width: 26px;
+    height: 14px;
+  }
+
+  #ballTop {
+    top: -45px;
+    width: 38px;
+    height: 38px;
+  }
+
+  #redFragments {
+    right: 5%;
+    gap: 5px;
+  }
+
+  .redFragment {
+    width: 14px;
+    height: 9px;
+  }
+
+  #gameTitle {
+    margin-top: 45px;
+    width: 100%;
+  }
+
+  .galaxyTitle {
+    font-size: clamp(1.8em, 6vw, 2.5em);
+    letter-spacing: clamp(2px, 1vw, 5px);
+    padding: 15px 40px;
+    clip-path: polygon(
+      12px 0%, 
+      calc(100% - 12px) 0%, 
+      100% 12px, 
+      100% calc(100% - 12px), 
+      calc(100% - 12px) 100%, 
+      12px 100%, 
+      0% calc(100% - 12px), 
+      0% 12px
+    );
+  }
+
+  .blockBreakerTitle {
+    padding: 10px 35px;
+    clip-path: polygon(
+      10px 0%, 
+      calc(100% - 10px) 0%, 
+      100% 10px, 
+      100% calc(100% - 10px), 
+      calc(100% - 10px) 100%, 
+      10px 100%, 
+      0% calc(100% - 10px), 
+      0% 10px
+    );
+  }
+
+  .titleText {
+    font-size: clamp(1.2em, 4vw, 1.4em);
+    letter-spacing: clamp(1px, 0.5vw, 2px);
+  }
+
+  .ballIcon {
+    font-size: clamp(1em, 3vw, 1.1em);
+  }
+
+  .paddle-end {
+    width: 22px;
+    height: 16px;
+  }
+
+  .paddle-center {
+    width: 70px;
+    height: 16px;
+  }
+
+  #paddleGraphic {
+    transform: rotate(-25deg);
+  }
+
+  .btn {
+    width: clamp(90px, 25vw, 110px);
+    height: clamp(90px, 25vw, 110px);
+    font-size: clamp(2.2em, 6vw, 2.8em);
+    border: 4px solid #94a3b8;
+  }
+
+  #gameCanvas {
+    width: 100%;
+    max-width: 360px;
+    height: auto;
+  }
+
+  #hud {
+    padding: 10px 15px;
+  }
+
+  #levelDisplay {
+    font-size: 1.2em;
+  }
+
+  #stars {
+    font-size: 1.3em;
+  }
+
+  #audioControls button {
+    width: 40px;
+    height: 40px;
+    font-size: 1.1em;
+  }
+
+  #levelsGrid {
+    grid-template-columns: repeat(5, minmax(45px, 50px));
+    grid-gap: 8px;
+    padding: 20px;
+    max-width: 90vw;
+  }
+
+  .levelBtn, .levelLocked {
+    width: 45px;
+    height: 45px;
+    font-size: 0.95em;
+    line-height: 39px;
+  }
+}
+
+@media screen and (max-width: 480px) {
+  #welcomeContent {
+    padding: 10px;
+  }
+
+  #colorfulBricks {
+    top: -40px;
+    left: 3%;
+    width: 75px;
+    gap: 2px;
+  }
+
+  .colorBrick {
+    width: 22px;
+    height: 11px;
+  }
+
+  #ballTop {
+    top: -35px;
+    width: 32px;
+    height: 32px;
+  }
+
+  #redFragments {
+    right: 3%;
+    gap: 4px;
+  }
+
+  .redFragment {
+    width: 11px;
+    height: 7px;
+  }
+
+  #gameTitle {
+    margin-top: 35px;
+    width: 100%;
+  }
+
+  .galaxyTitle {
+    font-size: clamp(1.5em, 8vw, 2em);
+    letter-spacing: clamp(1px, 1.5vw, 3px);
+    padding: 12px 30px;
+    border: 2px solid #60a5fa;
+    clip-path: polygon(
+      10px 0%, 
+      calc(100% - 10px) 0%, 
+      100% 10px, 
+      100% calc(100% - 10px), 
+      calc(100% - 10px) 100%, 
+      10px 100%, 
+      0% calc(100% - 10px), 
+      0% 10px
+    );
+  }
+
+  .blockBreakerTitle {
+    padding: 8px 25px;
+    clip-path: polygon(
+      8px 0%, 
+      calc(100% - 8px) 0%, 
+      100% 8px, 
+      100% calc(100% - 8px), 
+      calc(100% - 8px) 100%, 
+      8px 100%, 
+      0% calc(100% - 8px), 
+      0% 8px
+    );
+  }
+
+  .titleText {
+    font-size: clamp(1em, 5vw, 1.1em);
+    letter-spacing: clamp(0.5px, 1vw, 1px);
+  }
+
+  .ballIcon {
+    font-size: clamp(0.8em, 4vw, 0.9em);
+  }
+
+  .paddle-end {
+    width: 18px;
+    height: 14px;
+  }
+
+  .paddle-center {
+    width: 55px;
+    height: 14px;
+  }
+
+  .btn {
+    width: clamp(75px, 22vw, 90px);
+    height: clamp(75px, 22vw, 90px);
+    font-size: clamp(1.8em, 5.5vw, 2.2em);
+    border: 3px solid #94a3b8;
+  }
+
+  #hud {
+    padding: 8px 12px;
+  }
+
+  #levelDisplay {
+    font-size: 1em;
+  }
+
+  #stars {
+    font-size: 1.1em;
+  }
+
+  #audioControls button {
+    width: 36px;
+    height: 36px;
+    font-size: 1em;
+    border: 2px solid #86efac;
+  }
+
+  #levelsGrid {
+    grid-template-columns: repeat(4, minmax(42px, 48px));
+    grid-gap: 8px;
+    padding: 15px;
+    max-width: 95vw;
+  }
+
+  .levelBtn, .levelLocked {
+    width: 42px;
+    height: 42px;
+    font-size: 0.9em;
+    line-height: 36px;
+    border: 2px solid #64748b;
+  }
+
+  .levelLocked {
+    border: 2px solid #334155;
+  }
+}
+
+@media screen and (max-width: 360px) {
+  #welcomeContent {
+    padding: 8px;
+  }
+
+  #colorfulBricks {
+    top: -35px;
+    left: 2%;
+    width: 65px;
+  }
+
+  .colorBrick {
+    width: 19px;
+    height: 10px;
+  }
+
+  #ballTop {
+    top: -30px;
+    width: 28px;
+    height: 28px;
+  }
+
+  #redFragments {
+    right: 2%;
+  }
+
+  .redFragment {
+    width: 10px;
+    height: 6px;
+  }
+
+  #gameTitle {
+    margin-top: 30px;
+  }
+
+  .galaxyTitle {
+    font-size: clamp(1.3em, 9vw, 1.6em);
+    letter-spacing: clamp(1px, 2vw, 2px);
+    padding: 10px 25px;
+    clip-path: polygon(
+      8px 0%, 
+      calc(100% - 8px) 0%, 
+      100% 8px, 
+      100% calc(100% - 8px), 
+      calc(100% - 8px) 100%, 
+      8px 100%, 
+      0% calc(100% - 8px), 
+      0% 8px
+    );
+  }
+
+  .blockBreakerTitle {
+    padding: 6px 20px;
+    clip-path: polygon(
+      6px 0%, 
+      calc(100% - 6px) 0%, 
+      100% 6px, 
+      100% calc(100% - 6px), 
+      calc(100% - 6px) 100%, 
+      6px 100%, 
+      0% calc(100% - 6px), 
+      0% 6px
+    );
+  }
+
+  .titleText {
+    font-size: clamp(0.85em, 5.5vw, 0.95em);
+  }
+
+  .paddle-end {
+    width: 16px;
+    height: 12px;
+  }
+
+  .paddle-center {
+    width: 48px;
+    height: 12px;
+  }
+
+  .btn {
+    width: clamp(70px, 20vw, 80px);
+    height: clamp(70px, 20vw, 80px);
+    font-size: clamp(1.6em, 5vw, 2em);
+    border: 2px solid #94a3b8;
+  }
+
+  #levelsGrid {
+    grid-template-columns: repeat(3, minmax(40px, 45px));
+    grid-gap: 6px;
+    padding: 12px;
+    max-width: 95vw;
+  }
+
+  .levelBtn, .levelLocked {
+    width: 40px;
+    height: 40px;
+    font-size: 0.85em;
+    line-height: 34px;
+    border: 2px solid #64748b;
+  }
+
+  .levelLocked {
+    border: 2px solid #334155;
+    font-size: 1.2em;
+  }
+}

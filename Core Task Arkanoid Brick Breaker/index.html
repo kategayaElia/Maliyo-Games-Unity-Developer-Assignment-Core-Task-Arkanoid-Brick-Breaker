@@ -1,0 +1,95 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Galaxy Block Breaker</title>
+    <link rel="stylesheet" href="styles/style.css" />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Orbitron:wght@500&display=swap"
+      rel="stylesheet"
+    />
+  </head>
+  <body>
+   
+
+    <!-- Home Page -->
+    <div id="frontPage" class="screen active">
+      <div id="welcomeContent">
+        <div id="colorfulBricks">
+          <div class="colorBrick brick-blue"></div>
+          <div class="colorBrick brick-pink"></div>
+          <div class="colorBrick brick-orange"></div>
+          <div class="colorBrick brick-yellow"></div>
+          <div class="colorBrick brick-green"></div>
+        </div>
+        <div id="ballTop"></div>
+        <div id="redFragments">
+          <div class="redFragment"></div>
+          <div class="redFragment"></div>
+          <div class="redFragment"></div>
+        </div>
+        <h1 id="gameTitle">
+          <div class="galaxyTitle">GALAXY</div>
+          <div class="blockBreakerTitle">
+            <span class="titleText">BLOCK</span>
+            <span class="ballIcon">⚪</span>
+            <span class="titleText">BREAKER</span>
+          </div>
+        </h1>
+        <div id="paddleGraphic">
+          <div class="paddle-end"></div>
+          <div class="paddle-center"></div>
+          <div class="paddle-end"></div>
+        </div>
+        <button id="playBtn" class="btn">▶</button>
+      </div>
+    </div>
+
+    <!-- Level Select Page -->
+    <div id="levelSelect" class="screen">
+      <div id="levelSelectHeader">LEVEL SELECT</div>
+      <div id="levelsGrid"></div>
+    </div>
+
+    <!-- Game Page -->
+    <div id="gameContainer" class="screen">
+      <!-- HUD -->
+      <div id="hud">
+        <span id="levelDisplay">LEVEL 1</span>
+        <div id="stars">★ ★ ★</div>
+        <div id="audioControls">
+          <button id="toggleSound">🔊</button>
+          <button id="toggleMusic">🎵</button>
+        </div>
+      </div>
+
+      <!-- Progress Bar -->
+      <div id="progressBar">
+        <div id="progressFill"></div>
+      </div>
+
+      <!-- Game Canvas -->
+      <canvas id="gameCanvas" width="360" height="480"></canvas>
+
+      <!-- End Game UI -->
+      <div id="ui">
+        <p id="status"></p>
+        <div id="endControls" style="display: none">
+          <p id="levelInfo"></p>
+          <button id="Home">Home</button>
+          <button id="Levels">Levels</button>
+          <button id="restartBtn">Restart</button>
+        </div>
+      </div>
+    </div>
+
+    <script src="scripts/paddle.js"></script>
+    <script src="scripts/ball.js"></script>
+    <script src="scripts/brick.js"></script>
+    <script src="scripts/levels.js"></script>
+    <script src="scripts/ui.js"></script>
+    <script src="scripts/sound.js"></script>
+    <script src="scripts/game.js"></script>
+  </body>
+</html>
