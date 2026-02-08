@@ -1,4 +1,4 @@
-Here’s a concise documentation draft (about 1–2 pages when formatted into PDF) that covers all the required points for the project:
+Here’s a concise documentation draft that covers all the required points for the project:
 Which mini‑game did you choose and why?
 I chose Arkanoid Brick Breaker because it has simple mechanics yet addictive gameplay. 
 Its core loop of bouncing a ball to break bricks is easy to understand but challenging to master, making it ideal for a prototype recreation. 
